@@ -1,0 +1,5 @@
+Django==1.7
+Pillow==2.6.0
+argparse==1.2.1
+django-countries==2.1.2
+wsgiref==0.1.2
