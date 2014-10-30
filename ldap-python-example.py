@@ -17,9 +17,11 @@ search_result[0][0] = 'uid=d.s.rathor',ou=UG,ou=CSE,ou=People,dc=iitb,dc=ac,dc=i
 '''
 
 authenticated = False
+rollNumber = ''
 try:
-    authenticate = ldap.bind_s('search_result[0][0],'password')
+    authenticate = ldap.bind_s(search_result[0][0],'password')
     authenticated = True
+    rollNumber = search_result[0][1]['employeeNumber'][0]
 except ldap.INVALID_CREDENTIALS:
     print "your credentials are not correct"
 
