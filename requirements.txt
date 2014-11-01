@@ -1,5 +1,7 @@
 Django==1.7
 Pillow==2.6.0
 argparse==1.2.1
-django-countries==2.1.2
+backports.ssl-match-hostname==3.4.0.2
+psycopg2==2.5.4
+tornado==4.0.2
 wsgiref==0.1.2
