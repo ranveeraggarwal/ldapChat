@@ -22,6 +22,7 @@ try:
     authenticate = ldap.bind_s(search_result[0][0],'password')
     authenticated = True
     rollNumber = search_result[0][1]['employeeNumber'][0]
+    print rollNumber
 except ldap.INVALID_CREDENTIALS:
     print "your credentials are not correct"
 
