@@ -5,7 +5,7 @@ pip install python-ldap
 
 import sys,ldap
 
-CACERTFILE='/home/nitin/ldapChat/cse-cacert.pem'
+CACERTFILE='/home/nitin/ldapChat/auth/cse-cacert.pem'
 
 ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_DEMAND)
 ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, CACERTFILE)
