@@ -36,12 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'chat',
-=======
     'authentication',
-    'chat'
->>>>>>> e02fe218d139c667bbc351c778188480e8cb983c
+    'chat',
 )
 
 MIDDLEWARE_CLASSES = (
