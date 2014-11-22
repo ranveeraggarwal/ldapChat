@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__)+'../')
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
+    'chat'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,6 +69,10 @@ DATABASES = {
             'PORT': '',                      # Set to empty string for default.
         }
 }
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
