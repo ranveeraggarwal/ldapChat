@@ -19,6 +19,3 @@ class notice(models.Model):
 	notice_id = models.CharField(max_length=100)
 	message = models.CharField(max_length=500)
 	time_stamp = models.DateTimeField(auto_now_add= True)
-	
-
-# Create your models here.
