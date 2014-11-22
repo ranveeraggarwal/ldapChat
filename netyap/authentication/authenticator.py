@@ -24,17 +24,20 @@ def getConnection():
             continue
     return None
 
-def ldapAuth(username, password):
+def ldapAuth(request, username, password):
     conn = getConnection()
     if conn is None:
         return 'NO_CONNECTION'
     result = conn.search_s('dc=cse,dc=iitb,dc=ac,dc=in', ldap.SCOPE_SUBTREE, 'uid=%s' % username, ['uid','employeeNumber', 'cn'])
     if (len(result) < 1):
         return 'FAILED'
-    bindDN = result[0][0]
+    bind_dn = result[0][0]
     name = result[0][1]['cn'][0]
-    rollNumber = result[0][1]['cn'][0]
+    user_id = result[0][1]['cn'][0]
     username = result[0][1]['uid'][0]
+    type_id = bind_dn.split(',')
+    ou_type = type_id[-6].split('=')
+    type = ou_type[1]
 
     '''
     result should be:
@@ -44,7 +47,11 @@ def ldapAuth(username, password):
        'uid': ['dheerendra']})]
     '''
     try:
-        bind = conn.bind_s(bindDN, password, ldap.AUTH_SIMPLE)
+        conn.bind_s(bind_dn, password, ldap.AUTH_SIMPLE)
+        request.session['username'] = username
+        request.session['userId'] = user_id
+        request.session['name'] = name
+        request.session['userType'] = type
         return 'VALID'
     except ldap.INVALID_CREDENTIALS:
         return 'FAILED'
