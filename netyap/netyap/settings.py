@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'authentication',
     'chat',
-    'home',
+    'sample-app',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -5,7 +5,7 @@ from authentication import views
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'netyap.views.home', name='home'),
+    # url(r'^$', 'netyap.views.sample-app', name='sample-app'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', views.index, name='index'),
