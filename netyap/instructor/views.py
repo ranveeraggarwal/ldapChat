@@ -9,6 +9,6 @@ def index(request):
     type = request.session.get('type')
     ins_data = {}
     if type == 'f':
-        ins_data['name'] = request.
+        ins_data['name'] =
 
     return render('/instructor/instructor_home.html', {'instructor_name': 'varsha'})
