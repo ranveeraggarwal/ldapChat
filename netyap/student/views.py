@@ -14,7 +14,7 @@ def index(request):
         student_data['student_name'] = session.get('name')
         student_data['username'] = session.get('username')
         student_data['userId']=session.get('userId')
-        student_data['chat']=showchat(student_data['userId'])
+        student_data['chatrooms']=showchat(student_data['userId'])
         student_data['access_level']="Student"
 
     return render_to_response('student/student_home.html',student_data, context)

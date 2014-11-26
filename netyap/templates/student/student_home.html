@@ -50,7 +50,8 @@
 			    	<p>
 			    		{% for room in chatrooms %}
 			    			<div class="well">
-			    				{{ room }}
+			    				{{ room.title }}<br>
+								{{ room.course_id}}
 			    			</div>
 			    		{% endfor %}
 			    	</p>
