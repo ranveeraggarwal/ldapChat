@@ -37,11 +37,8 @@ def createChatroom(request):
         if form.is_valid():
             new_data = form.save(commit = True)
             room_no = new_data.pk
-            return startChat(request, room_no)
+            return redirect('/chat/'+str(room_no))
         else:
             print(form.errors)
     else:
         form = createChatroomForm()
-
-def startChat(request, room_no):
-    return redirect('/chat/'+str(room_no))
