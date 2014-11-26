@@ -38,6 +38,10 @@ def ldapAuth(request, username, password):
     type_id = bind_dn.split(',')
     ou_type = type_id[-6].split('=')
     type = ou_type[1]
+    if type.lower() == 'faculty':
+        type = 'f'
+    else:
+        type = 's'
 
     '''
     result should be:
