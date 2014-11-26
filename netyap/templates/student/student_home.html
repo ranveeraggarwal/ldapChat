@@ -30,15 +30,16 @@
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title" style="text-align:center">{{ student_name }}</h3>
 			  	</div>
-			  	<div class="panel-body">
+			  	<div class="panel-body" style="height: 200px; overflow-y: scroll;">
 			    	<p>
 			    		<strong>Access Level:</strong> {{ access_level }}
 			    		<hr>
-			    		<strong>Courses Registered</strong>
-			    		{% for course in courses %}
-			    			{{ course }}
-			    			<br>
-			    		{% endfor %}
+				    		<strong>Courses Registered</strong>
+				    		<ul>
+				    		{% for course in courses %}
+				    			<li>{{ course }}</li>
+				    		{% endfor %}
+				    		</ul>
 			    	</p>
 			  	</div>
 			</div>
@@ -46,12 +47,11 @@
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title" style="text-align:center">Recent Chatrooms</h3>
 			  	</div>
-			  	<div class="panel-body" style="height: 600px; overflow-y: scroll;">
+			  	<div class="panel-body" style="height: 300px; overflow-y: scroll;">
 			    	<p>
 			    		{% for room in chatrooms %}
 			    			<div class="well">
-			    				{{ room.title }}<br>
-								{{ room.course_id}}
+			    				<a href="/chat/{{ room.chatroom_id }}"><strong>{{ room.title }} &middot; </strong> {{ room.course_id}}</a>
 			    			</div>
 			    		{% endfor %}
 			    	</p>
