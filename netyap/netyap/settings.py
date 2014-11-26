@@ -50,6 +50,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'netyap.middlewares.StatsMiddleware'
 )
 
 ROOT_URLCONF = 'netyap.urls'
