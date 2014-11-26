@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
-    'chat-old',
+    'chatold',
     'instructor',
     'sample-app',
 )
