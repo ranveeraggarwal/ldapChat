@@ -4,10 +4,79 @@
     Instructor &middot; LDAPChat
 {% endblock %}
 
-{% block user %} {{instructor_name}} {% endblock %}
+{% block user %} {{ instructor_name }} {% endblock %}
 
 {% block body %}
-
-
-
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">{{ room_name }}</h3>
+			  	</div>
+			  	<div class="panel-body">
+			  		<div class="row">
+			  			<div class="col-md-10 col-md-offset-1">
+			  				<div class="panel panel-info">
+							  	<div class="panel-heading">
+							    	<h3 class="panel-title" style="text-align:center">Broadcast a Message</h3>
+							  	</div>
+							  	<div class="panel-body">
+							    	<form>
+							    		<div class="form-group">
+							    			<textarea name="broadcast_message" id="broadcast_message" class="form-control" placeholder="Please enter a message to be broadcasted."></textarea>
+							    		</div>
+							    		<button type="submit" class="btn btn-info" value="broadcast">Broadcast</button>
+							    	</form>
+							    	<hr>
+							    	<strong>Recent Broadcasts</strong>
+							    	{% for broad in recent_broadcast %}
+							    		<div class="well">
+							    			<p>broad</p>
+							    		</div>
+							    	{% endfor %}
+							  	</div>
+							</div>
+			  			</div>
+			  		</div>
+			    	<hr>
+			    	<center>
+			    		<button type="button" class="btn btn-large btn-primary"> Join This Chat</button>
+			    	</center>
+			  	</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">Prof. {{ instructor_name }}</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<p>
+			    		<strong>Access Level:</strong> {{ access_level }}
+			    		<hr>
+			    		<strong>Courses</strong>
+			    		{% for course in courses %}
+			    			{{ course }}
+			    			<br>
+			    		{% endfor %}
+			    	</p>
+			  	</div>
+			</div>
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">Your Chatrooms</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<p>
+			    		{% for room in chatrooms %}
+			    			{{ room }}
+			    			<br>
+			    		{% endfor %}
+			    	</p>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
