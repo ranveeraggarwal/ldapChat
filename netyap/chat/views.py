@@ -49,7 +49,10 @@ def joinChatroom(request,chatroom_id):
                 chatroom_id=chatroom_id,
                 user_id=user_id,
             )
+    subscribe.save()
     chat_data = chat.objects.filter(chatroom_id=chatroom_id)
     return render_to_response('chat/chatroom.html',chat_data, context)
 
-    subscribe.save()
+
+
+
