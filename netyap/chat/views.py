@@ -17,13 +17,13 @@ def joinChatroom(request,chatroom_id):
     session = request.session
     user_id = session.get('username')
     theChatRoom = Chatroom.objects.all().filter(chatroom_id=chatroom_id)[0]
-    #chat_data = {'room_title': theChatRoom.title, 'course_name': theChatRoom.course_id, 'user_name': session.get('name'), 'instructor': theChatRoom.instructor_name}
+    chat_data = {'room_title': theChatRoom.title, 'course_name': theChatRoom.course_id, 'user_name': session.get('name'), 'instructor': theChatRoom.instructor_name}
     subscribe= SubscriberTable(
                 chatroom_id=theChatRoom,
                 user_id=user_id,
             )
     subscribe.save()
-    chat_data={}
+    #chat_data={}
     chat_data['data']=Chat.objects.filter(chatroom_id=chatroom_id)
     return render_to_response('chat/chatroom.html',chat_data, context)
 
@@ -35,6 +35,15 @@ def leaveroom(request,chatroom_id):
     instance = SubscriberTable.objects.filter(chatroom_id=chatroom_id).filter(user_id = user_id).delete()
     #instance.delete()
     return redirect('/')
+
+def joinSubChatroom(request,chatroom_id,chat_id):
+
+    context = RequestContext(request)
+    session = request.session
+    chat_data = Chat.objects.filter(chatroom_id=chatroom_id, chat_id=chat_id)
+    #user_id = session.get('username')
+    chat = {'chatroom_id':chatroom_id, 'chat_id':chat_id, 'message':chat_data.message, 'parent_user_id':chat_data.user_id}
+    return render_to_response('chat/chatroom.html',chat,context)
 
 
 
