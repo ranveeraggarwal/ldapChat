@@ -33,7 +33,7 @@ def ldapAuth(request, username, password):
         return 'FAILED'
     bind_dn = result[0][0]
     name = result[0][1]['cn'][0]
-    user_id = result[0][1]['cn'][0]
+    user_id = result[0][1]['employeeNumber'][0]
     username = result[0][1]['uid'][0]
     type_id = bind_dn.split(',')
     ou_type = type_id[-6].split('=')
