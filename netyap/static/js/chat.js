@@ -9,7 +9,6 @@ $(document).ready(function() {
 });
 
 $("#send-message").click(function (e) {
-    console.log("here")
     e.preventDefault();
     var message = $("#reply-text").val();
     updater.socket.send(message);
@@ -38,9 +37,11 @@ var updater = {
     },
 
     showMessage: function(msg) {
-        console.log(msg)
-        msg = msg[0].fields;
-        console.log(JSON.stringify(msg));
+        type = msg.msgtype;
+        if (type == 'leftstatus'){
+            $(".msg-wrap").append(msg.user_id + " has left the chat");
+            return;
+        }
         var username =  msg.user_id;
         var message = msg.message;
         var timestamp = msg.time_stamp;

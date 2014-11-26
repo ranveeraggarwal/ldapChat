@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 import sys
+import json
+from django.forms.models import model_to_dict
+import ast
 import logging
 import django.conf
 import django.core.handlers.wsgi
@@ -16,6 +19,13 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'netyap.settings'
 from chat.models import Chat, Chatroom
 from collections import defaultdict
 from django.core import serializers
+
+
+class Message(object):
+
+    def __init__(self, chat, type):
+        self.chat = chat
+        self.type = type
 
 
 def get_session(request):
@@ -59,7 +69,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, msg):
         print "function called"
 
-        chatroom = Chatroom.objects.filter(chatroom_id=1)[0]
+        chatroom = Chatroom.objects.filter(chatroom_id=int(self.room))[0]
         chatparent = Chat.objects.filter(chat_id=-1)[0]
         chat = Chat(
             user_id=self.username,
@@ -69,9 +79,11 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         )
         chat.save()
         logging.info("got message %r", msg)
-        parsed = serializers.serialize('json', [chat, ])
+        time_stamp = chat.time_stamp
+        parsed = model_to_dict(chat)
+        parsed['msgtype'] = 'msg'
+        parsed['time_stamp'] = str(time_stamp)
+        print parsed
         ChatSocketHandler.send_updates(parsed, self.room)
 
-        #print "chatroom %s not found" % self.room
-        #self.close()
 
