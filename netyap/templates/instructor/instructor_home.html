@@ -106,7 +106,7 @@
 			    		<hr>
 			    		{% for room in chatroom %}
 			    		<div class="well">
-			    			<a href="/chat/{{ room.chatroom_id }}"><strong>{{ room.course_id }} &middot; </strong> {{ room.title }}</a>
+			    			<a href="/chat/{{ room.chatroom_id }}" id="room{{ room.chatroom_id }}" data-id="{{ room.chatroom_id }}" data-instructorUsername="{{room.instructor_username}}" data-instructorName="{{ room.instructor_name }}"><strong>{{ room.course_id }} &middot; </strong> {{ room.title }}</a>
 			    		</div>
 			    		{% endfor %}
 			    	</p>
