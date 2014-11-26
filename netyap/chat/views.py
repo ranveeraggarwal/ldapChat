@@ -40,7 +40,7 @@ def joinSubChatroom(request,chatroom_id,chat_id):
 
     context = RequestContext(request)
     session = request.session
-    chat_data = Chat.objects.filter(chatroom_id=chatroom_id, chat_id=chat_id)
+    chat_data = Chat.objects.filter(chatroom_id=chatroom_id, chat_id=chat_id)[0]
     #user_id = session.get('username')
     chat = {'chatroom_id':chatroom_id, 'chat_id':chat_id, 'message':chat_data.message, 'parent_user_id':chat_data.user_id}
     return render_to_response('chat/chatroom.html',chat,context)
