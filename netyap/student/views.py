@@ -1,9 +1,8 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
-
 # Create your views here.
-from netyap.chat.models import chatroom
+from chat.models import chatroom
 
 
 def index(request):

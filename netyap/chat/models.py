@@ -24,5 +24,7 @@ class notice(models.Model):
     message = models.CharField(max_length=500)
     time_stamp = models.DateTimeField(auto_now_add= True)
 
-
+class subscribertable(models.Model):
+    chatroom_id = models.ForeignKey(chatroom)
+    user_id = models.CharField(max_length=100)
 

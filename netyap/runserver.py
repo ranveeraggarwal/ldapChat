@@ -21,7 +21,6 @@ def main():
     tornado_app = tornado.web.Application(
         [
             (r"/chatsocket/(.*)", ChatSocketHandler),
-            (r"/fetchmsg/(.*)", GetMessageHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
         ]
