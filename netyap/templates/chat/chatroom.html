@@ -87,20 +87,22 @@
 	                <div class="alert alert-info msg-date">
 	                    <strong>Today</strong>
 	                </div>
-	                <div class="media msg">
-	                	{% for datum in data %}
-		                    <div class="media-body">
-		                        <div class="pull-right">
-									<small class="time"><i class="fa fa-clock-o"></i> datum.timestamp</small>
+	                {% for datum in data %}
+	                	<div class="media msg">
+	                	<div class="pull-right">
+									<small class="time"><i class="fa fa-clock-o"></i> {{datum.timestamp}}</small>
 									&middot;
 									<small class="time"><a href="#"><i class="fa fa-reply"></i> Reply</a></small>
 								</div>
+		                    <div class="media-body">
+		                        <h5 class="media-heading">{{datum.user_id}}</h5>
+		                        <small class="col-lg-10">{{datum.message}}</small>
 
-		                        <h5 class="media-heading">datum.user_id</h5>
-		                        <small class="col-lg-10">datum.message</small>
 		                    </div>
-		                {% endfor %}
-	                </div>
+		                <hr>
+	                	</div>
+	                	
+	                {% endfor %}
 
 
 	            </div>
