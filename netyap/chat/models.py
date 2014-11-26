@@ -3,9 +3,9 @@ from django.db import models
 
 class Chatroom(models.Model):
     chatroom_id = models.CharField(max_length=100, primary_key=True)
-    title = models.CharField(max_length=100)
-    instructor_username = models.CharField(max_length=100)
-    instructor_name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    instructor_username = models.CharField(max_length=100, null=True, blank=True)
+    instructor_name = models.CharField(max_length=100, null=True, blank=True)
     course_id = models.CharField(max_length=100)
     time_stamp = models.DateTimeField(auto_now_add= True)
 
@@ -16,7 +16,7 @@ class Chat(models.Model):
     user_id = models.CharField(max_length=100)
     message = models.CharField(max_length=500)
     time_stamp = models.DateTimeField(auto_now_add= True)
-    parent_id = models.ForeignKey('self')
+    parent_id = models.ForeignKey('self', default=-1)
 
 
 class Notice(models.Model):
