@@ -36,11 +36,11 @@ def createChatroom(request):
 
         if form.is_valid():
             form.save(commit = True)
-            title = createChatroomForm.objects.get(name='room_title')
-            prof= createChatroomForm.objects.get(name='instructor_name')
+            title = createChatroomForm.objects.get(name='title')
+            instructor_name= createChatroomForm.objects.get(name='instructor_name')
             course_id= createChatroomForm.objects.get(name='course_id')
             Chatroom.title = title
-            Chatroom.instructor_name = prof
+            Chatroom.instructor_name = instructor_name
             Chatroom.course_id = course_id
             Chatroom.save()
 
