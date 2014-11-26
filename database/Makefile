@@ -1,2 +1,2 @@
 insert:
-	psql -h localhost -d ldapchat -U ldapchat <create_user_table.sql
+	psql -h localhost -d ldapchat -U ldapchat <create_chat_data.sql
