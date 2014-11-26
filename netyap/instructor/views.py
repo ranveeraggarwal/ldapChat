@@ -21,8 +21,6 @@ def index(request):
             notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[5]
         except IndexError:
             notice = None
-        #chatroom = notice.chatroom.title
-        #ins_data['notice']
         return render_to_response('instructor/instructor_home.html', ins_data, context)
     elif userType == 's':
         return redirect('/student')
