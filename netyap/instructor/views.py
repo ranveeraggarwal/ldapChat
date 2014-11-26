@@ -25,9 +25,12 @@ def index(request):
                 theCourses.append(oneRoom.course_id)
         ins_data['courses'] = theCourses
         ins_data['access_level'] = "Instructor"
-        aRoom = instructor_chatrooms[0]
-        ins_data['recent_room'] = getRecentRoom(aRoom)
-        ins_data['recent_broadcast'] = Notice.objects.filter(chatroom_id=ins_data['recent_room']).order_by("-pk")
+        try:
+            aRoom = instructor_chatrooms[0]
+            ins_data['recent_room'] = getRecentRoom(aRoom)
+            ins_data['recent_broadcast'] = Chatroom.objects.filter(chatroom_id=ins_data['recent_room']).order_by("-pk")
+        except:
+            pass
         try:
             notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[5]
         except IndexError:
