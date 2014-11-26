@@ -45,12 +45,12 @@ def joinChatroom(request,chatroom_id):
     context = RequestContext(request)
     session = request.session
     user_id = session.get('userId')
-    subscribe=subscribertable(
+    subscribe= SubscriberTable(
                 chatroom_id=chatroom_id,
                 user_id=user_id,
             )
     subscribe.save()
-    chat_data = chat.objects.filter(chatroom_id=chatroom_id)
+    chat_data = Chat.objects.filter(chatroom_id=chatroom_id)
     return render_to_response('chat/chatroom.html',chat_data, context)
 
 

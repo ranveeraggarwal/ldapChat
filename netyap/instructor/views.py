@@ -25,3 +25,4 @@ def index(request):
         redirect('/student')
     else:
         redirect('/')
+
