@@ -15,7 +15,7 @@ def index(request):
     if userType == 'f':
         ins_data['instructor_name'] = session.get('name')
         ins_data['username'] = session.get('username')
-        instructor_chatrooms = Chatroom.objects.all().filter(instructor_username=ins_data['username']).order_by("-pk")
+        instructor_chatrooms = Chatroom.objects.filter(instructor_username=ins_data['username']).order_by("-pk")
         ins_data['chatroom'] = instructor_chatrooms
         theCourses = []
         for oneRoom in instructor_chatrooms:
@@ -27,6 +27,7 @@ def index(request):
         ins_data['access_level'] = "Instructor"
         aRoom = instructor_chatrooms[0]
         ins_data['recent_room'] = getRecentRoom(aRoom)
+        ins_data['recent_broadcast'] = Notice.objects.filter(chatroom_id=ins_data['recent_room']).order_by("-pk")
         try:
             notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[5]
         except IndexError:
