@@ -50,11 +50,21 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         self.username = username
         self.room = int(room)
         ChatSocketHandler.client[self.room].add(self)
+        chat = Chat()
+        chat = model_to_dict(chat)
+        chat['user_id'] = self.username
+        chat['msgtype'] = 'joinstatus'
+        ChatSocketHandler.send_updates(chat, self.room)
 
 
     def on_close(self):
         print "user left out"
         ChatSocketHandler.client[self.room].remove(self)
+        chat = Chat()
+        chat = model_to_dict(chat)
+        chat['user_id'] = self.username
+        chat['msgtype'] = 'leavestatus'
+        ChatSocketHandler.send_updates(chat, self.room)
 
 
     @classmethod
