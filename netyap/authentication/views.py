@@ -25,4 +25,7 @@ def authentication(request):
 
 def index(request):
     context = RequestContext(request)
+    username = request.session.get('username')
+    if username is not None:
+        return redirect()
     return render_to_response('authentication/index.html', {'logged': 4}, context)
