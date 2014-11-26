@@ -7,7 +7,7 @@ import tornado.web
 import tornado.wsgi
 import os
 
-from wsChat import ChatSocketHandler, GetMessageHandler
+from wsChat import ChatSocketHandler
 
 
 define("port", type=int, default=8000)

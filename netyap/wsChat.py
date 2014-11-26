@@ -2,7 +2,6 @@
 
 import logging
 import django.conf
-import django.contrib.auth
 import django.core.handlers.wsgi
 import django.db
 import django.utils.importlib
