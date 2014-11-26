@@ -12,34 +12,6 @@ def index(request, roomno):
 
     return render_to_response('chat/chatroom.html', context_dict, context)
 
-def createChatroom(request):
-
-    context = RequestContext(request)
-
-    if request.method == 'POST':
-        form = createChatroomForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit = True)
-            title = createChatroomForm.objexts.get(name='Title')
-            prof= createChatroomForm.objexts.get(name='Prof_Name')
-            course_id= createChatroomForm.objexts.get(name='Course_ID')
-            Chatroom.title = title
-            Chatroom.instructor_name = prof
-            Chatroom.course_id = course_id
-            Chatroom.save()
-
-            return startChat(request)
-
-        else:
-            print(form.errors)
-
-    else:
-        form = createChatroomForm()
-
-def startChat():
-    return 0
-
 def joinChatroom(request,chatroom_id):
 
     context = RequestContext(request)

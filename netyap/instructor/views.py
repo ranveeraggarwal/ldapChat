@@ -1,6 +1,9 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from chat.models import Chatroom, Notice
+from chat.models import SubscriberTable
+from chat.models import Chat
+from chat.forms import createChatroomForm
 
 # Create your views here.
 
@@ -22,9 +25,35 @@ def index(request):
         #ins_data['notice']
         return render_to_response('instructor/instructor_home.html', ins_data, context)
     elif userType == 's':
-        redirect('/student')
+        return redirect('/student')
     else:
-        redirect('/')
+        return redirect('/')
 
+def createChatroom(request):
 
+    context = RequestContext(request)
 
+    if request.method == 'POST':
+        form = createChatroomForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit = True)
+            title = createChatroomForm.objects.get(name='Title')
+            prof= createChatroomForm.objects.get(name='Prof_Name')
+            course_id= createChatroomForm.objects.get(name='Course_ID')
+            Chatroom.title = title
+            Chatroom.instructor_name = prof
+            Chatroom.course_id = course_id
+            Chatroom.save()
+
+            return startChat(request)
+
+        else:
+            print(form.errors)
+            return startChat(request)
+    else:
+        form = createChatroomForm()
+    return render_to_response('chat/' + str(1) + '.html',{}, context)
+
+def startChat():
+    return 0
