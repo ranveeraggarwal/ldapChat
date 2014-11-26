@@ -15,8 +15,18 @@ def index(request):
     if userType == 'f':
         ins_data['instructor_name'] = session.get('name')
         ins_data['username'] = session.get('username')
-        instructor_chatrooms = Chatroom.objects.filter(instructor_username=ins_data['username'])
+        instructor_chatrooms = Chatroom.objects.all().filter(instructor_username=ins_data['username']).order_by("-pk")
         ins_data['chatroom'] = instructor_chatrooms
+        theCourses = []
+        for oneRoom in instructor_chatrooms:
+            if oneRoom.course_id in theCourses:
+                pass
+            else:
+                theCourses.append(oneRoom.course_id)
+        ins_data['courses'] = theCourses
+        ins_data['access_level'] = "Instructor"
+        aRoom = instructor_chatrooms[0]
+        ins_data['recent_room'] = getRecentRoom(aRoom)
         try:
             notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[5]
         except IndexError:
@@ -26,6 +36,13 @@ def index(request):
         return redirect('/student')
     else:
         return redirect('/')
+
+def getRecentRoom(aRoom):
+    if aRoom == None:
+        instructor_chatrooms = Chatroom.objects.all().filter(instructor_username=ins_data['username']).order_by("-pk")
+        return instructor_chatrooms[0]
+    else:
+        return aRoom
 
 def createChatroom(request):
 
