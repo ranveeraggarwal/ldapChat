@@ -17,7 +17,7 @@ def createChatroom(request):
             prof= createChatroomForm.objexts.get(name='Prof_Name')
             course_id= createChatroomForm.objexts.get(name='Course_ID')
             chatroom.title = title
-            chatroom.prof = prof
+            chatroom.instructor_name = prof
             chatroom.course_id = course_id
             chatroom.save()
 
@@ -29,7 +29,12 @@ def createChatroom(request):
     else:
         form = createChatroomForm()
 
-    return render_to_response('chat/index.html', {'form':form}, context)
+
+def joinChatroom(request,chatroom_id):
+
+    context = RequestContext(chatroom_id)
+
+
 
 def startChat():
     return 0
