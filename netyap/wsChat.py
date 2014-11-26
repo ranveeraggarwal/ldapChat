@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import logging
 import django.conf
 import django.core.handlers.wsgi
@@ -14,6 +15,7 @@ import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'netyap.settings'
 from chat.models import Chat, Chatroom
 from collections import defaultdict
+from django.core import serializers
 
 
 def get_session(request):
@@ -36,8 +38,9 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
     def open(self, room):
         username = get_session(self).get('username')
         self.username = username
-        self.room = room
+        self.room = int(room)
         ChatSocketHandler.client[self.room].add(self)
+
 
     def on_close(self):
         print "user left out"
@@ -50,23 +53,25 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         for waiter in cls.client[room]:
             try:
                 waiter.write_message(chat)
-            except:
+            except Exception:
                 logging.error("Error sending message", exc_info=True)
 
-    def on_message(self, message):
+    def on_message(self, msg):
+        print "function called"
 
         chatroom = Chatroom.objects.filter(chatroom_id=1)[0]
         chatparent = Chat.objects.filter(chat_id=-1)[0]
         chat = Chat(
-            user_id='lsdfjsd',
+            user_id=self.username,
             chatroom_id=chatroom,
-            message='sldf',
+            message=msg,
             parent_id=chatparent
         )
         chat.save()
-        logging.info("got message %r", message)
-        #parsed = tornado.escape.json_decode(message)
+        logging.info("got message %r", msg)
+        parsed = serializers.serialize('json', [chat, ])
+        ChatSocketHandler.send_updates(parsed, self.room)
 
-        #ChatSocketHandler.update_cache(chat, self.room)
-        #ChatSocketHandler.send_updates(chat, self.room)
+        #print "chatroom %s not found" % self.room
+        #self.close()
 
