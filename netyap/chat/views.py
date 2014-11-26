@@ -1,9 +1,9 @@
 from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
 from forms import createChatroomForm
-from models import chatroom
-from models import subscribertable
-from models import chat
+from models import Chatroom
+from models import SubscriberTable
+from models import Chat
 
 def index(request):
     context = RequestContext(request)
@@ -24,10 +24,10 @@ def createChatroom(request):
             title = createChatroomForm.objexts.get(name='Title')
             prof= createChatroomForm.objexts.get(name='Prof_Name')
             course_id= createChatroomForm.objexts.get(name='Course_ID')
-            chatroom.title = title
-            chatroom.instructor_name = prof
-            chatroom.course_id = course_id
-            chatroom.save()
+            Chatroom.title = title
+            Chatroom.instructor_name = prof
+            Chatroom.course_id = course_id
+            Chatroom.save()
 
             return startChat(request)
 
