@@ -20,3 +20,20 @@ On your terminal. Your app would now be running at `localhost:8000`
 
 #Setting up the database
 We're using postgresql, so first, install that. Next create a user ldapchat with password ldapchat and then create a database called ldapchat. You're good to go.
+
+Following are the steps:
+
+1. Create a DB user:
+        
+        CREATE USER ldapchat PASSWORD 'ldapchat';
+
+2. Create a database:
+
+	CREATE DATABASE ldapchat OWNER ldapchat;
+
+3. If you created the owner and the db before and want to remove them, do
+
+	DELETE USER ldapchat;
+	DROP DATABASE ldapchat;
+
+
