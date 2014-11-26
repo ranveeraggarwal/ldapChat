@@ -6,7 +6,7 @@ from django.template import RequestContext
 def index(request):
     session = request.session
     context = RequestContext(request)
-    type = request.session.get('type')
+    type = request.session.get('userType')
     ins_data = {}
     if type == 'f':
         ins_data['name'] = session.get('name')
