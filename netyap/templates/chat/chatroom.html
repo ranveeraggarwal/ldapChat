@@ -92,7 +92,7 @@
 	                	<div class="pull-right">
 									<small class="time"><i class="fa fa-clock-o"></i> {{datum.timestamp}}</small>
 									&middot;
-									<small class="time"><a href="#"><i class="fa fa-reply"></i> Reply</a></small>
+									<small class="time"><a href="/chat/{{ datum.chatroom_id }}/{{ datum.chat_id }}"><i class="fa fa-reply"></i> Reply</a></small>
 								</div>
 		                    <div class="media-body">
 		                        <h5 class="media-heading">{{datum.user_id}}</h5>
@@ -101,7 +101,7 @@
 		                    </div>
 		                <hr>
 	                	</div>
-	                	
+
 	                {% endfor %}
 
 

@@ -1,4 +1,5 @@
 var chatroom;
+var parent;
 $(document).ready(function() {
     var urlpath = window.location.pathname;
     urlpath = urlpath.split("/")
@@ -38,25 +39,34 @@ var updater = {
 
     showMessage: function(msg) {
         type = msg.msgtype;
-        if (type == 'leftstatus'){
-            $(".msg-wrap").append(msg.user_id + " has left the chat");
+        if (type == 'leavestatus'){
+            $(".msg-wrap").prepend(msg.user_id + " has left the chat\n");
+            return;
+        }
+        if (type == 'joinstatus'){
+            $(".msg-wrap").prepend(msg.user_id +" has joined the chat\n");
             return;
         }
         var username =  msg.user_id;
         var message = msg.message;
         var timestamp = msg.time_stamp;
-        var id = msg.pk;
+        var id = msg.chat_id;
         var parentId = msg.parentId;
 
         var msgitem = '<div class="media msg"> \
-	                    <div class="media-body" id="'+id+'"> \
-	                        <small class="pull-right time"><i class="fa fa-clock-o"></i>'+timestamp+'</small> \
-                            \
-	                        <h5 class="media-heading">' + username + '</h5> \
-	                        <small class="col-lg-10">'+message+'</small> \
-	                    </div> \
-	                </div>';
+	                	<div class="pull-right"> \
+									<small class="time"><i class="fa fa-clock-o"></i>'+timestamp+'</small> \
+									&middot; \
+									<small class="time"><a href="/chat/'+chatroom+'/'+id+'"><i class="fa fa-reply"></i> Reply</a></small> \
+								</div> \
+		                    <div class="media-body"> \
+		                        <h5 class="media-heading">'+username+'</h5> \
+		                        <small class="col-lg-10">'+message+'</small> \
+    \
+		                    </div> \
+		                <hr> \
+	                	</div>';
 
-        $(".msg-wrap").append(msgitem);
+        $(".msg-wrap").prepend(msgitem);
     }
 };
