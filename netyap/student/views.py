@@ -28,7 +28,7 @@ def index(request):
     return render_to_response('student/student_home.html',student_data, context)
 
 def showchat(userid):
-    return Chatroom.objects.all()
+    return Chatroom.objects.all().order_by("-pk")
 
 def showbroadcasts(userid):
-    return Notice.objects.all()
+    return Notice.objects.all().order_by("-pk")
