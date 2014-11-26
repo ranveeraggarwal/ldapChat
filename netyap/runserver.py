@@ -27,7 +27,7 @@ def main():
     )
     server = tornado.httpserver.HTTPServer(tornado_app)
     server.listen(options.port)
-    print "server started"
+    print "server started. Press Ctrl-C to close"
     tornado.ioloop.IOLoop.instance().start()
 
 if __name__ == '__main__':
