@@ -1,8 +1,9 @@
-__author__ = 'ranveer'
+__author__ = 'kabraadit'
 
 from django.conf.urls import patterns, include, url
-import views
+from chat import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    url(r'^createchat$', views.createChatroom, name='createChatroom'),
+    url(r'^joinchat/$', views.joinChatroom, name='joinChatroom'),
 )
