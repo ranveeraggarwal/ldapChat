@@ -40,11 +40,27 @@ var updater = {
     showMessage: function(msg) {
         type = msg.msgtype;
         if (type == 'leavestatus'){
-            $(".msg-wrap").prepend(msg.user_id + " has left the chat\n");
+            var msgitem1 = '<div class="media msg"> \
+                                <div class="media-body"> \
+                                    <h5 class="media-heading">'+msg.user_id+'</h5> \
+                                    <small class="col-lg-10">Has left the chat.</small> \
+        \
+                                </div> \
+                            <hr> \
+                            </div>';
+            $(".msg-wrap").prepend(msgitem1);
             return;
         }
         if (type == 'joinstatus'){
-            $(".msg-wrap").prepend(msg.user_id +" has joined the chat\n");
+            var msgitem2 = '<div class="media msg"> \
+                                <div class="media-body"> \
+                                    <h5 class="media-heading">'+msg.user_id+'</h5> \
+                                    <small class="col-lg-10">Has joined the chat.</small> \
+        \
+                                </div> \
+                            <hr> \
+                            </div>';
+            $(".msg-wrap").prepend(msgitem2);
             return;
         }
         var username =  msg.user_id;
