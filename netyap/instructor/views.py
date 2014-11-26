@@ -26,3 +26,5 @@ def index(request):
     else:
         redirect('/')
 
+
+
