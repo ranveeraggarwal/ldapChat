@@ -36,6 +36,7 @@ def createChatroom(request):
 
         if form.is_valid():
             form.save(commit = True)
+            '''
             title = createChatroomForm.objects.get(name='title')
             instructor_name= createChatroomForm.objects.get(name='instructor_name')
             course_id= createChatroomForm.objects.get(name='course_id')
@@ -43,7 +44,7 @@ def createChatroom(request):
             Chatroom.instructor_name = instructor_name
             Chatroom.course_id = course_id
             Chatroom.save()
-
+            '''
             return redirect('/chat/'+str(1))
             #return startChat(request)
 
