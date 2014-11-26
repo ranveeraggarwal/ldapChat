@@ -29,11 +29,11 @@ Following are the steps:
 
 2. Create a database:
 
-	CREATE DATABASE ldapchat OWNER ldapchat;
+        CREATE DATABASE ldapchat OWNER ldapchat;
 
 3. If you created the owner and the db before and want to remove them, do
 
-	DELETE USER ldapchat;
-	DROP DATABASE ldapchat;
+        DELETE USER ldapchat;
+        DROP DATABASE ldapchat;
 
 
