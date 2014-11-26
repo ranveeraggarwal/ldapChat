@@ -12,7 +12,7 @@
 		<div class="col-md-8">
 			<div class="panel panel-primary">
 			  	<div class="panel-heading">
-			    	<h3 class="panel-title" style="text-align:center">{{ room_name }}</h3>
+			    	<h3 class="panel-title" style="text-align:center">{{ recent_room.title }}</h3>
 			  	</div>
 			  	<div class="panel-body">
 			  		<div class="row">
@@ -41,7 +41,7 @@
 			  		</div>
 			    	<hr>
 			    	<center>
-			    		<button type="button" class="btn btn-primary"> Join This Chat</button>
+			    		<a class="btn btn-primary" href="/chat/{{ recent_room.chatroom_id }}"> Join This Chat</a>
 			    	</center>
 			  	</div>
 			</div>
@@ -51,15 +51,16 @@
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title" style="text-align:center">Prof. {{ instructor_name }}</h3>
 			  	</div>
-			  	<div class="panel-body">
+			  	<div class="panel-body" style="height: 200px; overflow-y: scroll;">
 			    	<p>
 			    		<strong>Access Level:</strong> {{ access_level }}
 			    		<hr>
 			    		<strong>Courses</strong>
+			    		<ul>
 			    		{% for course in courses %}
-			    			{{ course }}
-			    			<br>
+			    			<li>{{ course }}</li>
 			    		{% endfor %}
+			    		</ul>
 			    	</p>
 			  	</div>
 			</div>
@@ -67,7 +68,7 @@
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title" style="text-align:center">Your Chatrooms</h3>
 			  	</div>
-			  	<div class="panel-body">
+			  	<div class="panel-body" style="height: 300px; overflow-y: scroll;">
 			    	<p>
 			    		<center>
 				    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -103,9 +104,10 @@
 						  	</div>
 						</div>	
 			    		<hr>
-			    		{% for room in chatrooms %}
-			    			{{ room }}
-			    			<br>
+			    		{% for room in chatroom %}
+			    		<div class="well">
+			    			<a href="/chat/{{ room.chatroom_id }}"><strong>{{ room.course_id }} &middot; </strong> {{ room.title }}</a>
+			    		</div>
 			    		{% endfor %}
 			    	</p>
 			  	</div>
