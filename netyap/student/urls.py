@@ -1,7 +1,7 @@
-__author__ = 'ranveer'
+__author__ = 'kabraadit'
 
 from django.conf.urls import patterns, include, url
-from instructor import views
+from student import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
