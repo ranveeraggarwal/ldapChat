@@ -19,7 +19,7 @@ $("#send-message").click(function (e) {
 $("#leave-room").click(function (e){
     e.preventDefault();
     updater.socket.close();
-    window.location.href = '/'
+    window.location.href = '/chat/leaveRoom/'+chatroom;
 });
 
 
@@ -38,6 +38,7 @@ var updater = {
     },
 
     showMessage: function(msg) {
+        console.log(msg)
         msg = msg[0].fields;
         console.log(JSON.stringify(msg));
         var username =  msg.user_id;
