@@ -82,13 +82,15 @@
 						        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						        		<h4 class="modal-title" id="myModalLabel">Create Chatroom</h4>
 						      		</div>
-						      		<form>
+						      		<form action="createchat" method="post">
+                                        {% csrf_token %}
 						      			<div class="modal-body">
 						        			<div class="form-group">
-			                                    <input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name">
+			                                    <input type="text" class="form-control" id="title" name="title" placeholder="Room Name">
 			                                </div>
 			                                <div class="form-group">
-			                                    <input type="text" class="form-control" id="course" name="course" placeholder="Course">
+			                                    <input type="text" class="form-control" id="course_id" name="course_id" placeholder="Course">
+			                                    <input type="hidden" id="instructor_name" name="instructor_name" value="{{ instructor_name }}">
 			                                </div>
 						      			</div>
 							      		<div class="modal-footer">
