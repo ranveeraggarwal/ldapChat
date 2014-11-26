@@ -20,12 +20,16 @@ def authentication(request):
         else:
             return render_to_response('authentication/index.html', {'logged': False}, context)
     else:
-        return render_to_response('authentication/index.html', {'logged': 3}, context)
+        return redirect('authentication.views.index')
 
 
 def index(request):
     context = RequestContext(request)
     username = request.session.get('username')
     if username is not None:
-        return redirect()
+        userType = request.session.get('userType')
+        if userType == 'f':
+            return redirect('/instructor')
+        else:
+            return redirect('/student')
     return render_to_response('authentication/index.html', {'logged': 4}, context)
