@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class chatroom(models.Model):
+class Chatroom(models.Model):
     chatroom_id = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(max_length=100)
     instructor_username = models.CharField(max_length=100)
@@ -10,7 +10,7 @@ class chatroom(models.Model):
     time_stamp = models.DateTimeField(auto_now_add= True)
 
 
-class chat(models.Model):
+class Chat(models.Model):
     chatroom_id = models.ForeignKey(chatroom)
     chat_id = models.CharField(max_length=100, primary_key=True)
     user_id = models.CharField(max_length=100)
@@ -19,13 +19,13 @@ class chat(models.Model):
     parent_id = models.ForeignKey('self')
 
 
-class notice(models.Model):
+class Notice(models.Model):
     chatroom_id=models.ForeignKey(chatroom)
     notice_id = models.CharField(max_length=100, primary_key=True)
     message = models.CharField(max_length=500)
     time_stamp = models.DateTimeField(auto_now_add= True)
 
-class subscribertable(models.Model):
+class Subscribertable(models.Model):
     chatroom_id = models.ForeignKey(chatroom)
     user_id = models.CharField(max_length=100)
 
