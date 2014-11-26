@@ -33,3 +33,7 @@ def index(request):
         else:
             return redirect('/student')
     return render_to_response('authentication/index.html', {'logged': 4}, context)
+
+def logout(request):
+    request.session.flush()
+    return redirect("/")
