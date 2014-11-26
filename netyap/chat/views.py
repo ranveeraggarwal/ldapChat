@@ -4,6 +4,13 @@ from forms import createChatroomForm
 from models import chatroom
 
 
+def index(request):
+    context = RequestContext(request)
+
+    context_dict = {'boldMessage': "I am bold font from the context"}
+
+    return render_to_response('chat/chatroom.html', context_dict, context)
+
 def createChatroom(request):
 
     context = RequestContext(request)

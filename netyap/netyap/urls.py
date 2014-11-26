@@ -9,5 +9,6 @@ urlpatterns = patterns('',
 
     url(r'^', include('authentication.urls')),
     url(r'^instructor/', include('instructor.urls')),
+    url(r'^chat/', include('chat.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
