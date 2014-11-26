@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     url(r'^', include('authentication.urls')),
     url(r'^student/',include('student.urls')),
     url(r'^instructor/', include('instructor.urls')),
-    url(r'^chat/',include('chat.urls')),
+    url(r'^chat-old/',include('chat-old.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

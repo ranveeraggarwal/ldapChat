@@ -20,6 +20,7 @@ class chat(models.Model):
 
 
 class notice(models.Model):
+    chatroom_id=models.ForeignKey(chatroom)
     notice_id = models.CharField(max_length=100, primary_key=True)
     message = models.CharField(max_length=500)
     time_stamp = models.DateTimeField(auto_now_add= True)
@@ -27,4 +28,6 @@ class notice(models.Model):
 class subscribertable(models.Model):
     chatroom_id = models.ForeignKey(chatroom)
     user_id = models.CharField(max_length=100)
+
+
 

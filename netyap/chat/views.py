@@ -2,14 +2,15 @@ from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
 from forms import createChatroomForm
 from models import chatroom
-
+from models import subscribertable
+from models import chat
 
 def index(request):
     context = RequestContext(request)
 
     context_dict = {'boldMessage': "I am bold font from the context"}
 
-    return render_to_response('chat/chatroom.html', context_dict, context)
+    return render_to_response('chat-old/chatroom.html', context_dict, context)
 
 def createChatroom(request):
 
@@ -36,12 +37,19 @@ def createChatroom(request):
     else:
         form = createChatroomForm()
 
+def startChat():
+    return 0
 
 def joinChatroom(request,chatroom_id):
 
-    context = RequestContext(chatroom_id)
+    context = RequestContext(request)
+    session = request.session
+    user_id = session.get('userId')
+    subscribe=subscribertable(
+                chatroom_id=chatroom_id,
+                user_id=user_id,
+            )
+    chat_data = chat.objects.filter(chatroom_id=chatroom_id)
+    return render_to_response('chat/chatroom.html',chat_data, context)
 
-
-
-def startChat():
-    return 0
+    subscribe.save()

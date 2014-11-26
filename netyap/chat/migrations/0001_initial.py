@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='chat',
+            name='chat-old',
             fields=[
                 ('chat_id', models.CharField(max_length=100, serialize=False, primary_key=True)),
                 ('user_id', models.CharField(max_length=100)),
@@ -48,9 +48,9 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='chat',
+            model_name='chat-old',
             name='chatroom_id',
-            field=models.ForeignKey(to='chat.chatroom'),
+            field=models.ForeignKey(to='chat-old.chatroom'),
             preserve_default=True,
         ),
     ]
