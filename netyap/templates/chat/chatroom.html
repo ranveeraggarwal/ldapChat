@@ -24,6 +24,16 @@
 					Created By: {{ instructor }}
 				</h4>
 			</div>
+			{% if isSubChatRoom == 1 %}
+			<div class="col-md-12">
+				<h4>
+					Discussion on:
+				</h4>
+				<h5>
+					{{message}}
+				</h5>
+			</div>
+			{% endif %}
 		</div>
 		<br>
 
