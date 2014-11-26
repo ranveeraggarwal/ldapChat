@@ -1,5 +1,5 @@
 from django import forms
-from models import chatroom
+from models import Chatroom
 
 
 class createChatroomForm(forms.Form):
@@ -8,5 +8,5 @@ class createChatroomForm(forms.Form):
     course_id = forms.CharField(max_length=100, required=True)
 
     class Meta:
-        model = chatroom
+        model = Chatroom
         fields = ('title', 'prof', 'course_id')

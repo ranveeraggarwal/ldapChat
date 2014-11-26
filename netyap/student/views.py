@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
 # Create your views here.
-from chat.models import chatroom
+from chat.models import Chatroom
 
 
 def index(request):
@@ -14,10 +14,10 @@ def index(request):
         student_data['name'] = session.get('name')
         student_data['username'] = session.get('username')
         student_data['userId']=session.get('userId')
-        student_data['chat-old']=showchat(student_data['userId'])
+        student_data['chat']=showchat(student_data['userId'])
 
     return render_to_response('student/student_home.html',student_data, context)
 
 def showchat(userid):
-    return chatroom.objects.all()
+    return Chatroom.objects.all()
 
