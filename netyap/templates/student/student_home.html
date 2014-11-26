@@ -4,6 +4,59 @@
     Student Home &middot; LDAPChat
 {% endblock %}
 
-{% block body %}
+{% block user %} {{ student_name }} {% endblock %}
 
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">Recent Broadcasts</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<p>
+			    		{% for broad in broadcasts %}
+			    			<div class="well">
+			    				{{ broad }}
+			    			</div>
+			    		{% endfor %}
+			    	</p>
+			  	</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">{{ student_name }}</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<p>
+			    		<strong>Access Level:</strong> {{ access_level }}
+			    		<hr>
+			    		<strong>Courses Registered</strong>
+			    		{% for course in courses %}
+			    			{{ course }}
+			    			<br>
+			    		{% endfor %}
+			    	</p>
+			  	</div>
+			</div>
+			<div class="panel panel-primary">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" style="text-align:center">Recent Chatrooms</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<p>
+			    		{% for room in chatrooms %}
+			    			<div class="well">
+			    				{{ room }}
+			    			</div>
+			    		{% endfor %}
+			    	</p>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
