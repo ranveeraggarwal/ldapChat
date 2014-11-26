@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 
 # Create your views here.
@@ -10,6 +10,6 @@ def index(request):
     ins_data = {}
     if type == 'f':
         ins_data['name'] = session.get('name')
+        ins_data['username'] = session.get('username')
 
-
-    return render('/instructor/instructor_home.html', {'instructor_name': 'varsha'})
+    return render_to_response('instructor/instructor_home.html', {'instructor_name': 'varsha'}, context)
