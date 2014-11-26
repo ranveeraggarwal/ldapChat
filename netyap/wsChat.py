@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 import logging
+import django.conf
+import django.contrib.auth
+import django.core.handlers.wsgi
+import django.db
+import django.utils.importlib
 import tornado.escape
 import tornado.ioloop
 import tornado.options
@@ -9,10 +14,11 @@ import tornado.websocket
 import uuid
 from collections import defaultdict
 
-class GetMessageHandler(tornado.web.RequestHandler):
-    def get(self, room):
-        data = tornado.escape.json_encode(ChatSocketHandler.cache[room])
-        self.write(data)
+def get_session(request):
+    if not hasattr(request, '_session'):
+        engine = django.utils.importlib.import_module(
+            django.conf.settings.SESSION_ENGINE
+        )
 
 class ChatSocketHandler(tornado.websocket.WebSocketHandler):
     client = defaultdict(set)
@@ -24,6 +30,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         return {}
 
     def open(self, room):
+        print self.request
         self.room = room
         ChatSocketHandler.client[self.room].add(self)
 
