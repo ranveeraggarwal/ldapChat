@@ -51,7 +51,7 @@ def createChatroom(request):
             return startChat(request)
     else:
         form = createChatroomForm()
-    return render_to_response('chat/' + str(1) + '.html',{}, context)
+    return redirect('/chat/'+str(1))
 
 def startChat():
     return 0
