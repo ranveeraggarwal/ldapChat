@@ -15,7 +15,7 @@ def index(request):
         instructor_chatrooms = Chatroom.objects.filter(instructor_username=ins_data['username'])
         ins_data['chatroom'] = instructor_chatrooms
         try:
-            notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[0]
+            notice = Notice.objects.filter(chatroom_id__instructor_username=ins_data['username']).order_by('time_stamp')[5]
         except IndexError:
             notice = None
         #chatroom = notice.chatroom.title
