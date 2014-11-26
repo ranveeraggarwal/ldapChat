@@ -19,6 +19,7 @@ $("#send-message").click(function (e) {
 $("#leave-room").click(function (e){
     e.preventDefault();
     updater.socket.close();
+    window.location.href = '/'
 });
 
 
