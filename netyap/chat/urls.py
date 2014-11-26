@@ -6,4 +6,5 @@ from chat import views
 urlpatterns = patterns('',
     url(r'^createchat$', views.createChatroom, name='createChatroom'),
     url(r'^joinchat/(\d+)$', views.joinChatroom, name='joinChatroom'),
+
 )

@@ -5,7 +5,7 @@ from models import Chatroom
 from models import SubscriberTable
 from models import Chat
 
-def index(request):
+def index(request, roomno):
     context = RequestContext(request)
 
     context_dict = {'boldMessage': "I am bold font from the context"}
