@@ -3,6 +3,8 @@ from django.template.context import RequestContext
 from models import Chatroom, Notice
 from models import SubscriberTable
 from models import Chat
+from django.http import HttpResponse
+from django.core import serializers
 
 def index(request, roomno):
     session = request.session
@@ -49,6 +51,10 @@ def joinSubChatroom(request,chatroom_id,chat_id):
             'room_title':chatroom_data.title, 'instructor':chatroom_data.instructor_name,
             'course_name':chatroom_data.course_id, 'parent_user_id':chat_data.user_id}
     return render_to_response('chat/chatroom.html',chat,context)
+
+def getChatroomDetail(reqeust, chatroom_id):
+    chatroom = Chatroom.objects.all().filter(chatroom_id=chatroom_id)
+    return HttpResponse(serializers.serialize('json', chatroom), content_type='application/json')
 
 
 
