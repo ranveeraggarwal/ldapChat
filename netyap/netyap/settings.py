@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'authentication',
     'chat',
     'instructor',
-    'sample-app',
+    'student',
 )
 
 MIDDLEWARE_CLASSES = (
