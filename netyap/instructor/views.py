@@ -28,7 +28,7 @@ def index(request):
         try:
             aRoom = instructor_chatrooms[0]
             ins_data['recent_room'] = getRecentRoom(aRoom)
-            ins_data['recent_broadcast'] = Chatroom.objects.filter(chatroom_id=ins_data['recent_room']).order_by("-pk")
+            ins_data['recent_broadcast'] = Chatroom.objects.filter(chatroom_id=ins_data['recent_room']).order_by("-pk")[0]
         except:
             pass
         try:
