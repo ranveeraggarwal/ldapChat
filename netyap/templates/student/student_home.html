@@ -19,7 +19,7 @@
 			    		{% for broad in broadcasts %}
 			    			<div class="well">
 			    				<strong>{{ broad.chatroom_id.title }} &middot; {{ broad.chatroom_id.instructor_name }} :</strong> {{ broad.message }}
-                                <a class="pull-right" href="/chat/{{ broad.chatroom_id }}">Go to Chat</a>
+                                <a class="pull-right" href="/chat/{{ broad.chatroom_id.chatroom_id }}">Go to Chat</a>
 			    			</div>
 			    		{% endfor %}
 			    	</p>
