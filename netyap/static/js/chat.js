@@ -40,7 +40,10 @@ var updater = {
     showMessage: function(msg) {
         type = msg.msgtype;
         if (type == 'bc'){
-            console.log(msg);
+            if (chatroom == msg.chatroom_id){
+                $("#brodal-body").html(msg.message);
+                $("#brodal").modal('toggle');
+            }
             return;
         }
         if (type == 'leavestatus'){
