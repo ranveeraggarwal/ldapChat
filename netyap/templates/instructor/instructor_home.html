@@ -23,7 +23,7 @@
 							  	<div class="panel-heading">
 							    	<h3 class="panel-title" style="text-align:center">Broadcast a Message</h3>
 							  	</div>
-							  	<div class="panel-body">
+							  	<div class="panel-body" style="overflow-y: scroll; height: 500px;">
 							    	<form>
 							    		<div class="form-group">
 							    			<textarea name="broadcast_message" id="bc-msg" class="form-control" placeholder="Please enter a message to be broadcasted."></textarea>
@@ -32,10 +32,12 @@
 							    	</form>
 							    	<hr>
 							    	<strong>Recent Broadcasts</strong>
+                                    <hr>
 							    	{% for broad in recent_broadcast %}
 							    		<div class="well">
-							    			<p>{{ broad.message }}</p>
-							    		</div>
+			    				            <strong>{{ broad.chatroom_id.title }} &middot; {{ broad.chatroom_id.instructor_name }} :</strong> {{ broad.message }}
+                                            <a class="pull-right" href="/chat/{{ broad.chatroom_id }}">Go to Chat</a>
+			    			            </div>
 							    	{% endfor %}
 							  	</div>
 							</div>
