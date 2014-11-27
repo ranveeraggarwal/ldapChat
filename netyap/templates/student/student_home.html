@@ -50,6 +50,12 @@
 			  	</div>
 			  	<div class="panel-body" style="height: 300px; overflow-y: scroll;">
 			    	<p>
+                        {% for room in subs_chatrooms %}
+			    			<div class="well">
+			    				<a href="/chat/{{ room.chatroom_id }}"><strong>{{ room.title }} &middot; </strong> {{ room.course_id}}</a>
+                                <a href="/chat/leaveroom/{{ room.chatroom_id }}" class="pull-right">Unsubscribe</a>
+			    			</div>
+			    		{% endfor %}
 			    		{% for room in chatrooms %}
 			    			<div class="well">
 			    				<a href="/chat/{{ room.chatroom_id }}"><strong>{{ room.title }} &middot; </strong> {{ room.course_id}}</a>

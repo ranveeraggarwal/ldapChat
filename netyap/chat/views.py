@@ -17,7 +17,7 @@ def joinChatroom(request,chatroom_id):
     session = request.session
     user_id = session.get('username')
     theChatRoom = Chatroom.objects.all().filter(chatroom_id=chatroom_id)[0]
-    theBroadcast = Notice.objects.all().filter(chatroom_id=chatroom_id).order_by("-pk")[0:15]
+    theBroadcast = Notice.objects.all().filter(chatroom_id=chatroom_id).order_by("-pk")
     chat_data = {'isSubChatRoom':0,'room_title': theChatRoom.title, 'course_name': theChatRoom.course_id, 'user_name': session.get('name'), 'instructor': theChatRoom.instructor_name}
     chat_data['broadcasts'] = theBroadcast
     subscribe= SubscriberTable(
@@ -49,9 +49,6 @@ def joinSubChatroom(request,chatroom_id,chat_id):
             'room_title':chatroom_data.title, 'instructor':chatroom_data.instructor_name,
             'course_name':chatroom_data.course_id, 'parent_user_id':chat_data.user_id}
     return render_to_response('chat/chatroom.html',chat,context)
-
-
-
 
 
 

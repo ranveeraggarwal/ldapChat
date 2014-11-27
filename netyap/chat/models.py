@@ -29,6 +29,7 @@ class Notice(models.Model):
 class SubscriberTable(models.Model):
     chatroom_id = models.ForeignKey(Chatroom)
     user_id = models.CharField(max_length=100)
+    time_stamp = models.DateTimeField(auto_now_add=True)
 
 
 
