@@ -63,7 +63,7 @@
 	                {% for datum in data %}
 	                	<div class="media msg">
 	                	<div class="pull-right">
-									<small class="time"><i class="fa fa-clock-o"></i> {{datum.timestamp}}</small>
+									<small class="time"><i class="fa fa-clock-o"></i> {{ datum.timestamp }}</small>
 									&middot;
 									<small class="time"><a href="/chat/{{ datum.chatroom_id.chatroom_id }}/{{ datum.chat_id }}"><i class="fa fa-reply"></i> Reply</a></small>
 								</div>

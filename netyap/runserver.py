@@ -20,7 +20,7 @@ def main():
     )
     tornado_app = tornado.web.Application(
         [
-            (r"/chatsocket/(.*)", ChatSocketHandler),
+            (r"/chatsocket/(\d+)/(-?\d+)", ChatSocketHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
         ]

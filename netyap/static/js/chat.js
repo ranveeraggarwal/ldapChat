@@ -4,6 +4,11 @@ $(document).ready(function() {
     var urlpath = window.location.pathname;
     urlpath = urlpath.split("/")
     chatroom = urlpath[2];
+    parent = urlpath[3];
+    if (typeof(parent) == 'undefined'){
+        parent = -1;
+    }
+    console.log(parent);
     updater.start();
     console.log(updater.socket);
 
@@ -27,7 +32,7 @@ var updater = {
     socket: null,
 
     start: function() {
-        var url = "ws://" + location.host + "/chatsocket/" + chatroom;
+        var url = "ws://" + location.host + "/chatsocket/" + chatroom+"/"+String(parent);
         updater.socket = new WebSocket(url);
         updater.socket.onmessage = function(event) {
             updater.showMessage(JSON.parse(event.data));
@@ -38,6 +43,12 @@ var updater = {
     },
 
     showMessage: function(msg) {
+        console.log(msg.parent_id);
+        console.log(parent);
+        if (msg.parent_id != parent){
+            console.log("xyx")
+            return;
+        }
         type = msg.msgtype;
         if (type == 'bc'){
             if (chatroom == msg.chatroom_id){
@@ -74,7 +85,6 @@ var updater = {
         var message = msg.message;
         var timestamp = msg.time_stamp;
         var id = msg.chat_id;
-        var parentId = msg.parentId;
 
         var msgitem = '<div class="media msg"> \
 	                	<div class="pull-right"> \
