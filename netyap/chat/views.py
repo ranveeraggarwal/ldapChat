@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.template.context import RequestContext
-from models import Chatroom
+from models import Chatroom, Notice
 from models import SubscriberTable
 from models import Chat
 
@@ -17,7 +17,9 @@ def joinChatroom(request,chatroom_id):
     session = request.session
     user_id = session.get('username')
     theChatRoom = Chatroom.objects.all().filter(chatroom_id=chatroom_id)[0]
+    theBroadcast = Notice.objects.all().filter(chatroom_id=chatroom_id)
     chat_data = {'isSubChatRoom':0,'room_title': theChatRoom.title, 'course_name': theChatRoom.course_id, 'user_name': session.get('name'), 'instructor': theChatRoom.instructor_name}
+    chat_data['broadcasts'] = theBroadcast
     subscribe= SubscriberTable(
                 chatroom_id=theChatRoom,
                 user_id=user_id,
