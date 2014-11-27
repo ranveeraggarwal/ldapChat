@@ -39,6 +39,10 @@ var updater = {
 
     showMessage: function(msg) {
         type = msg.msgtype;
+        if (type == 'bc'){
+            console.log(msg);
+            return;
+        }
         if (type == 'leavestatus'){
             var msgitem1 = '<div class="media msg"> \
                                 <div class="media-body"> \

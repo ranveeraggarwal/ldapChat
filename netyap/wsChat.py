@@ -16,7 +16,7 @@ import tornado.web
 import tornado.websocket
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'netyap.settings'
-from chat.models import Chat, Chatroom
+from chat.models import Chat, Chatroom, Notice
 from collections import defaultdict
 from django.core import serializers
 
@@ -47,8 +47,13 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
     def open(self, room):
         username = get_session(self).get('username')
+        if username is None:
+            self.close()
+            return
+        userType = get_session(self).get('userType')
         self.username = username
         self.room = int(room)
+        self.userType = userType
         ChatSocketHandler.client[self.room].add(self)
         chat = Chat()
         chat = model_to_dict(chat)
@@ -77,8 +82,21 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
                 logging.error("Error sending message", exc_info=True)
 
     def on_message(self, msg):
-        print "function called"
-
+        userType = self.userType
+        if (userType == 'f'):
+            if msg.startswith("bc~~::~~"):
+                chatroom = Chatroom.objects.filter(chatroom_id=int(self.room))[0]
+                notice = Notice(
+                    chatroom_id=chatroom,
+                    message=msg[8:]
+                )
+                notice.save()
+                time_stamp = notice.time_stamp
+                parsed = model_to_dict(notice)
+                parsed['msgtype'] = 'bc'
+                parsed['time_stamp'] = str(time_stamp)
+                ChatSocketHandler.send_updates(parsed, self.room)
+                return
         chatroom = Chatroom.objects.filter(chatroom_id=int(self.room))[0]
         chatparent = Chat.objects.filter(chat_id=-1)[0]
         chat = Chat(
@@ -93,7 +111,6 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         parsed = model_to_dict(chat)
         parsed['msgtype'] = 'msg'
         parsed['time_stamp'] = str(time_stamp)
-        print parsed
         ChatSocketHandler.send_updates(parsed, self.room)
 
 
