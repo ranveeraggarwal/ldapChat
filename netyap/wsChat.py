@@ -28,7 +28,7 @@ def get_session(request):
 
 
 class ChatSocketHandler(tornado.websocket.WebSocketHandler):
-    client = defaultdict(set)
+    client = defaultdict(lambda: defaultdict(set))
 
     def get_compression_options(self):
         # Non-None enables compression with default options.
@@ -42,32 +42,31 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
             return
         userType = get_session(self).get('userType')
         self.username = username
-        self.room = int(room)
+        self.room = room
         self.userType = userType
         self.parent = parent
-        self.key = room + "~~" + parent
-        ChatSocketHandler.client[self.key].add(self)
+        ChatSocketHandler.client[self.room][self.parent].add(self)
         chat = Chat()
         chat = model_to_dict(chat)
         chat['user_id'] = self.username
         chat['msgtype'] = 'joinstatus'
-        ChatSocketHandler.send_updates(chat, self.key)
+        ChatSocketHandler.send_updates(chat, self.room, self.parent)
 
 
     def on_close(self):
         print "user left out"
-        ChatSocketHandler.client[self.key].remove(self)
+        ChatSocketHandler.client[self.room][self.parent].remove(self)
         chat = Chat()
         chat = model_to_dict(chat)
         chat['user_id'] = self.username
         chat['msgtype'] = 'leavestatus'
-        ChatSocketHandler.send_updates(chat, self.key)
+        ChatSocketHandler.send_updates(chat, self.room, self.parent)
 
 
     @classmethod
-    def send_updates(cls, chat, key):
-        logging.info("sending message to %d client", len(cls.client))
-        for waiter in cls.client[key]:
+    def send_updates(cls, chat, room, parent):
+        logging.info("sending message to %d client", len(cls.client[room][parent]))
+        for waiter in cls.client[room][parent]:
             try:
                 waiter.write_message(chat)
             except Exception:
@@ -75,14 +74,12 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
     @classmethod
     def send_broadcast(cls, msg, room):
-        for key, value in cls.client.iteritems():
-            key_room = key.split("~~")[0]
-            if key_room == room:
-                for waiter in value:
-                    try:
-                        waiter.write_message(msg)
-                    except Exception:
-                        logging.error("Error sending message", exc_info=True)
+        for parent in cls.client[room]:
+            for waiter in cls.client[room][parent]:
+                try:
+                    waiter.write_message(msg)
+                except Exception:
+                    logging.error("Error sending message", exc_info=True)
 
 
     def on_message(self, msg):
@@ -116,6 +113,6 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         parsed = model_to_dict(chat)
         parsed['msgtype'] = 'msg'
         parsed['time_stamp'] = str(time_stamp)
-        ChatSocketHandler.send_updates(parsed, self.key)
+        ChatSocketHandler.send_updates(parsed, self.room, self.parent)
 
 

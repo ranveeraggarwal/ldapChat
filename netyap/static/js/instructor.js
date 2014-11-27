@@ -2,8 +2,11 @@
  * Created by dheerendra on 11/27/14.
  */
 
-
+var giveup_count = 0;
 function waitForSocketConnection(socket, callback){
+    if (giveup_count > 15){
+        return;
+    }
     setTimeout(
         function () {
             if (socket.readyState === 1) {
@@ -19,6 +22,7 @@ function waitForSocketConnection(socket, callback){
             }
 
         }, 5); // wait 5 milisecond for the connection...
+    giveup_count++;
 };
 
 function sendMessage(socket, msg) {
@@ -45,7 +49,7 @@ $("#bc-id").click(function (e){
     e.preventDefault();
    var chatroom_id = $(this).data('id');
    var bcMessage = $("#bc-msg").val();
-   var bcurl = "ws://"+location.host+"/chatsocket/"+chatroom_id;
+   var bcurl = "ws://"+location.host+"/chatsocket/"+chatroom_id+"/-2";
    console.log(bcurl);
    var bcws = new WebSocket(bcurl);
    bcMessage = "bc~~::~~"+bcMessage;

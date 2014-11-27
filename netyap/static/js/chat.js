@@ -45,10 +45,6 @@ var updater = {
     showMessage: function(msg) {
         console.log(msg.parent_id);
         console.log(parent);
-        if (msg.parent_id != parent){
-            console.log("xyx")
-            return;
-        }
         type = msg.msgtype;
         if (type == 'bc'){
             if (chatroom == msg.chatroom_id){
