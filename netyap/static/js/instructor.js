@@ -71,7 +71,7 @@ $("a[id^=room]").click(function(e){
         success: function(data){
             $("#recent-broadcasts").html('');
             for (var i = 0; i< data.length; i++){
-                $("#recent-broadcasts").html('<div class="well"> \
+                $("#recent-broadcasts").append('<div class="well"> \
 			    				            <strong>'+chatroom_name+' &middot; '+instructor_name+' :</strong> '+data[i]['fields']['message']+' \
                                             <a class="pull-right" href="/chat/'+data[i]['fields']['chatroom_id']+'">Go to Chat</a> \
 			    			            </div>');
