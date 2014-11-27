@@ -17,7 +17,7 @@ def joinChatroom(request,chatroom_id):
     session = request.session
     user_id = session.get('username')
     theChatRoom = Chatroom.objects.all().filter(chatroom_id=chatroom_id)[0]
-    theBroadcast = Notice.objects.all().filter(chatroom_id=chatroom_id).order_by("-pk")
+    theBroadcast = Notice.objects.all().filter(chatroom_id=chatroom_id).order_by("-pk")[0:15]
     chat_data = {'isSubChatRoom':0,'room_title': theChatRoom.title, 'course_name': theChatRoom.course_id, 'user_name': session.get('name'), 'instructor': theChatRoom.instructor_name}
     chat_data['broadcasts'] = theBroadcast
     subscribe= SubscriberTable(
@@ -26,7 +26,7 @@ def joinChatroom(request,chatroom_id):
             )
     subscribe.save()
     #chat_data={}
-    chat_data['data']=Chat.objects.filter(chatroom_id=chatroom_id)
+    chat_data['data']=Chat.objects.filter(chatroom_id=chatroom_id).order_by('-time_stamp')
     return render_to_response('chat/chatroom.html',chat_data, context)
 
 def leaveroom(request,chatroom_id):

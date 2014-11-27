@@ -5,6 +5,10 @@
 var giveup_count = 0;
 function waitForSocketConnection(socket, callback){
     if (giveup_count > 15){
+        $("#bc-form").append('<div class="alert alert-error alert-dismissible fade in" role="alert"> \
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> \
+      <strong>Broadcast Failed!</strong> Please check your internet connection.\
+    </div>');
         return;
     }
     setTimeout(
@@ -28,6 +32,12 @@ function waitForSocketConnection(socket, callback){
 function sendMessage(socket, msg) {
     waitForSocketConnection(socket, function () {
         socket.send(msg);
+        var title = $("#bc-title").html()
+        $("#bc-form").append('<div class="alert alert-success alert-dismissible fade in" role="alert"> \
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> \
+      <strong>Broadcast Successful!</strong> You have broadcasted to '+title+'.\
+    </div>');
+
     });
 };
 
