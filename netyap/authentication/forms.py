@@ -13,7 +13,10 @@ class AuthenticationForm(forms.Form):
                 'placeholder': 'LDAP Username'
             }
         ),
-        required=True
+        required=True,
+        error_messages={
+            'required': 'username is required'
+        }
     )
 
     password = forms.CharField(
@@ -24,7 +27,10 @@ class AuthenticationForm(forms.Form):
                 'placeholder': 'Enter Password'
             }
         ),
-        required=True
+        required=True,
+        error_messages={
+            'required': 'password is required'
+        }
     )
 
     remember = forms.BooleanField(
@@ -33,5 +39,6 @@ class AuthenticationForm(forms.Form):
             attrs={
                 'id': 'remember',
             }
-        )
+        ),
+        required=False
     )
