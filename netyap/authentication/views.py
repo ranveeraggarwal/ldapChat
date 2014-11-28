@@ -1,26 +1,27 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-from authenticator import ldapAuth
+from authenticator import authenticate
+import forms
 
 # Create your views here.
 
 
 def authentication(request):
     context = RequestContext(request)
-    if request.method == 'POST':
-        username = request.REQUEST["username"]
-        password = request.REQUEST["passwd"]
-        authenticate = ldapAuth(request, username, password)
-        if authenticate == 'VALID':
+    form = forms.AuthenticationForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        remember = form.cleaned_data['remember']
+        print remember
+        auth = authenticate(request, username, password)
+        if auth == 'VALID':
             userType = request.session.get('userType')
             if userType == 'f':
                 return redirect('/instructor')
             else:
                 return redirect('/student')
-        else:
-            return render_to_response('authentication/index.html', {'logged': False}, context)
-    else:
-        return redirect('authentication.views.index')
+    return render_to_response('authentication/index.html', {'form': form}, context)
 
 
 def index(request):
@@ -32,7 +33,8 @@ def index(request):
             return redirect('/instructor')
         else:
             return redirect('/student')
-    return render_to_response('authentication/index.html', {'logged': 4}, context)
+    form = forms.AuthenticationForm()
+    return render_to_response('authentication/index.html', {'logged': 4, 'form': form}, context)
 
 def logout(request):
     request.session.flush()

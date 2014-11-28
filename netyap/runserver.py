@@ -23,7 +23,8 @@ def main():
             (r"/chatsocket/(\d+)/(-?\d+)", ChatSocketHandler),
             (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": "static/"}),
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
-        ]
+        ],
+        debug=True
     )
     server = tornado.httpserver.HTTPServer(tornado_app)
     server.listen(options.port)

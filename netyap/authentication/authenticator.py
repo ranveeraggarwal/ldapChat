@@ -24,7 +24,7 @@ def getConnection():
             continue
     return None
 
-def ldapAuth(request, username, password):
+def authenticate(request, username, password):
     if username == "dummy" and password == "dummy":
         request.session['username'] = 'dummy'
         request.session['name'] = 'dummy instructor'
