@@ -65,7 +65,7 @@ $("a[id^=room]").click(function(e){
         }
     });
     $.ajax({
-        url: '/instructor/fetchBroadcasts/'+chatroom_id,
+        url: '/instructor/fetch_broadcasts/'+chatroom_id,
         type: 'GET',
         dataType: 'json',
         success: function(data){

@@ -29,7 +29,10 @@ def authentication(request):
                 return redirect('/instructor')
             else:
                 return redirect('/student')
-        form.add_error(None, 'Invalid Username/Password')
+        elif auth == 'NO_CONNECTION':
+            form.add_error(None, 'Cannot connect to ldap server')
+        else:
+            form.add_error(None, 'Invalid Username/Password')
     return render_to_response('authentication/index.html', {'form': form}, context)
 
 

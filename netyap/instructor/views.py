@@ -66,7 +66,8 @@ def createChatroom(request):
     else:
         form = createChatroomForm()
 
-def fetchBroadcasts(request, chatroom_id):
+
+def fetch_broadcasts(request, chatroom_id):
     userType = request.session.get('userType')
     if (userType != 'f'):
         return HttpResponse('', content_type='application/json')

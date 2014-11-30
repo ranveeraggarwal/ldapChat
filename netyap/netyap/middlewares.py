@@ -11,7 +11,6 @@ class StatsMiddleware(object):
     def process_request(self,request):
         session = request.session
         path = request.get_full_path()
-        print path
         if path != '/' and not(path.startswith('/login')) and session.get('username')==None:
             return redirect('/')
 

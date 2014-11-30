@@ -6,6 +6,6 @@ import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^createchat$', views.createChatroom, name='createChatroom'),
-    url(r'^fetchBroadcasts/(\d+)$', views.fetchBroadcasts, name='fetchBroadcasts'),
+    url(r'^fetch_broadcasts/(\d+)$', views.fetch_broadcasts, name='fetch_broadcasts'),
 
 )

@@ -13,7 +13,7 @@ ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, CACERTFILE)
 servers = ['ldap://1.ldap.cse.iitb.ac.in', 'ldap://2.ldap.cse.iitb.ac.in', 'ldap://3.ldap.cse.iitb.ac.in', 'ldap://4.ldap.cse.iitb.ac.in']
 
 
-def getConnection():
+def get_connection():
     for server in servers:
         try:
             conn = ldap.initialize(server)
@@ -30,12 +30,12 @@ def authenticate(request, username, password):
         request.session['name'] = 'dummy instructor'
         request.session['userType'] = 'f'
         return 'VALID'
-    conn = getConnection()
+    conn = get_connection()
     if conn is None:
         return 'NO_CONNECTION'
     result = conn.search_s('dc=cse,dc=iitb,dc=ac,dc=in', ldap.SCOPE_SUBTREE, 'uid=%s' % username, ['uid','employeeNumber', 'cn'])
     print result
-    if (len(result) < 1):
+    if len(result) < 1:
         return 'FAILED'
     bind_dn = result[0][0]
     name = result[0][1]['cn'][0]
