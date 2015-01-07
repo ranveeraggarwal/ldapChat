@@ -12,9 +12,10 @@ Then, you need to install all the reuirements. We'd suggest you to work on a vir
 
 Now before you run it, setup the database.
 
-And then, to run it, finally go to the directory with `manage.py` and enter:
-
-    ./manage.py runserver
+And then, to run it, 
+    
+    cd netyap
+    ./runserver.py
 
 On your terminal. Your app would now be running at `localhost:8000`
 
